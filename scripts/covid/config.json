@@ -1,0 +1,24 @@
+{
+  "files": {
+    "cite": {
+      "rna": "data/covid/PBMC_vaccine_CITE__RNA.h5ad",
+      "adt": "data/covid/PBMC_vaccine_CITE__ADT.h5ad"
+    },
+    "asap": {
+      "atac": "data/covid/PBMC_vaccine_ASAP__ATAC.h5ad",
+      "adt": "data/covid/PBMC_vaccine_ASAP__ADT.h5ad"
+    }
+  },
+  "donor_key": "donor",
+  "day_key": "timepoint",
+  "cell_type_key": {
+    "cite": "celltypel1",
+    "asap": "predicted.CITE_l1"
+  },
+  "control_day": "Day0",
+  "min_cells": 10,
+  "n_top": {
+    "rna": 3000,
+    "atac": 20000
+  }
+}
