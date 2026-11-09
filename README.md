@@ -1,7 +1,5 @@
 # donor-perturbation
 
-Undergraduate project (in progress). We are trying to apply existing perturbation prediction methods to an unseen-donor setting: predicting a donor's response from its untreated cells, evaluated leave-one-donor-out.
-
 Data: COVID vaccine dataset from Zhang et al. 2023 (Nat Immunol), https://zenodo.org/records/7555405.
 CITE-seq (RNA + ADT) and ASAP-seq (ATAC + ADT), 6 donors, days 0 / 2 / 11 / 28.
 
