@@ -6,12 +6,12 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from pertbench import make_synthetic, pseudobulk
-from pertbench.metrics import condition_metrics
-from pertbench.models import (ContextRidge, NoChange, PerturbationMean,
+from lodo import make_synthetic, pseudobulk
+from lodo.metrics import condition_metrics
+from lodo.models import (ContextRidge, NoChange, PerturbationMean,
                               default_models)
-from pertbench.runner import evaluate_split, run, summarise
-from pertbench.splits import SPLITS, unseen_context, unseen_perturbation
+from lodo.runner import evaluate_split, run, summarise
+from lodo.splits import SPLITS, unseen_context, unseen_perturbation
 
 
 @pytest.fixture(scope="module")
@@ -108,7 +108,7 @@ def _fake_covid(tmp_path, seed=0):
 
 
 def test_covid_loader_merges_assays(tmp_path):
-    from pertbench.datasets import covid_vaccine
+    from lodo.datasets import covid_vaccine
     cfg = _fake_covid(tmp_path)
     ct = covid_vaccine(**cfg)
     assert set(ct.modalities) == {"rna", "cite_adt", "atac", "asap_adt"}
@@ -119,15 +119,15 @@ def test_covid_loader_merges_assays(tmp_path):
 
 
 def test_covid_lodo_runs(tmp_path):
-    from pertbench.datasets import covid_vaccine
-    from pertbench.models import default_models
+    from lodo.datasets import covid_vaccine
+    from lodo.models import default_models
     ct = covid_vaccine(**_fake_covid(tmp_path))
     df = evaluate_split(default_models(ct.modalities)[2], ct, unseen_context(ct, "donor", "D3"))
     assert set(df["donor"]) == {"D3"} and not df["mse"].isna().any()
 
 
 def test_distribution_metrics_detect_shift():
-    from pertbench.metrics import distribution_metrics
+    from lodo.metrics import distribution_metrics
     rng = np.random.default_rng(0)
     a, b = rng.normal(size=(400, 10)), rng.normal(size=(400, 10))
     near = distribution_metrics(a, b)
@@ -141,7 +141,7 @@ def test_distribution_metrics_detect_shift():
 
 def test_covid_loader_per_table_keys_and_norm(tmp_path):
     import anndata as ad
-    from pertbench.datasets import covid_vaccine
+    from lodo.datasets import covid_vaccine
     cfg = _fake_covid(tmp_path)
     for m, p in cfg["files"]["asap"].items():
         a = ad.read_h5ad(p)
@@ -158,7 +158,7 @@ def test_covid_loader_per_table_keys_and_norm(tmp_path):
 
 
 def test_evaluate_skips_conditions_without_control(ct):
-    from pertbench.models import PerturbationMean
+    from lodo.models import PerturbationMean
     drop = ct.is_control() & (ct.obs["cell_type"] == "ct0").to_numpy() & (ct.obs["donor"] == "donor1").to_numpy()
     sub = ct.subset(~drop)
     df = evaluate_split(PerturbationMean(), sub, unseen_context(sub, "donor", "donor1"))
@@ -166,7 +166,7 @@ def test_evaluate_skips_conditions_without_control(ct):
 
 
 def test_covid_loader_fixed_feature_list(tmp_path):
-    from pertbench.datasets import covid_vaccine
+    from lodo.datasets import covid_vaccine
     cfg = _fake_covid(tmp_path)
     wanted = ["atac3", "atac7", "atac42", "not_a_peak"]
     f = tmp_path / "peaks.txt"

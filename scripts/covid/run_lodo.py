@@ -10,10 +10,10 @@ sys.path.insert(0, str(ROOT))
 
 import pandas as pd
 
-from pertbench.datasets import covid_vaccine
-from pertbench.models import default_models
-from pertbench.runner import evaluate_split, skill_vs_baseline, summarise
-from pertbench.splits import unseen_context
+from lodo.datasets import covid_vaccine
+from lodo.models import default_models
+from lodo.runner import evaluate_split, skill_vs_baseline, summarise
+from lodo.splits import unseen_context
 
 
 def main():

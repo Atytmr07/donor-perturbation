@@ -6,10 +6,10 @@ import time
 import numpy as np
 import pandas as pd
 
-from pertbench.data import KEYS, ConditionTable
-from pertbench.metrics import condition_metrics, delta_norm
-from pertbench.models import Model
-from pertbench.splits import SPLITS, Split
+from lodo.data import KEYS, ConditionTable
+from lodo.metrics import condition_metrics, delta_norm
+from lodo.models import Model
+from lodo.splits import SPLITS, Split
 
 
 def evaluate_split(model: Model, ct: ConditionTable, split: Split, top_k: int = 20) -> pd.DataFrame:
@@ -18,7 +18,7 @@ def evaluate_split(model: Model, ct: ConditionTable, split: Split, top_k: int = 
     has_ctrl = np.array([(c, d) in ctrl_ctx for c, d in ct.obs[["cell_type", "donor"]].itertuples(index=False, name=None)])
     test_mask = split.test & has_ctrl
     if (split.test & ~has_ctrl).any():
-        print(f"[pertbench] {split.name}: {int((split.test & ~has_ctrl).sum())} test conditions skipped (no control group)")
+        print(f"[lodo] {split.name}: {int((split.test & ~has_ctrl).sum())} test conditions skipped (no control group)")
     test = ct.subset(test_mask)
     m = copy.deepcopy(model)
     t0 = time.perf_counter()
@@ -50,7 +50,7 @@ def run(models: list[Model], ct: ConditionTable, split_names: list[str], top_k: 
                 df["split_family"] = sname
                 frames.append(df)
         if verbose:
-            print(f"[pertbench] finished split family {sname} ({len(splits)} folds)")
+            print(f"[lodo] finished split family {sname} ({len(splits)} folds)")
     return pd.concat(frames, ignore_index=True)
 
 

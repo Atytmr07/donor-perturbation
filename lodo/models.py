@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from pertbench.data import CONTEXT, ConditionTable
+from lodo.data import CONTEXT, ConditionTable
 
 
 class Model:

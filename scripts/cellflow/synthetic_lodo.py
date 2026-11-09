@@ -16,11 +16,11 @@ import optax
 import pandas as pd
 from cellflow.model import CellFlow
 
-from pertbench.data import pseudobulk
-from pertbench.metrics import condition_metrics, distribution_metrics
-from pertbench.models import ContextRidge, NoChange, PerturbationMean
-from pertbench.synthetic import make_synthetic
-from pertbench.splits import Split
+from lodo.data import pseudobulk
+from lodo.metrics import condition_metrics, distribution_metrics
+from lodo.models import ContextRidge, NoChange, PerturbationMean
+from lodo.synthetic import make_synthetic
+from lodo.splits import Split
 
 MODS = ["rna", "protein", "atac"]
 

@@ -42,7 +42,7 @@ def covid_vaccine(files: dict, donor_key: str, day_key: str, cell_type_key: str 
                   cell_type_map: dict | None = None, train_donors: list[str] | None = None,
                   features: dict | None = None):
     import anndata as ad
-    from pertbench.data import ConditionTable, merge_tables, pseudobulk_sparse
+    from lodo.data import ConditionTable, merge_tables, pseudobulk_sparse
     norm = {"rna": "log1p_cp10k", "adt": "clr", "atac": "binary_log1p_cp10k", **(norm or {})}
     n_top = {"rna": 3000, "atac": 20000, **(n_top or {})}
     tables = {}

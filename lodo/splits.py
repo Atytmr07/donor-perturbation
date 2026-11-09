@@ -5,7 +5,7 @@ from typing import Iterator
 
 import numpy as np
 
-from pertbench.data import ConditionTable
+from lodo.data import ConditionTable
 
 
 @dataclass

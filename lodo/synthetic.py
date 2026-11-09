@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from pertbench.data import PerturbData
+from lodo.data import PerturbData
 
 
 def make_synthetic(
